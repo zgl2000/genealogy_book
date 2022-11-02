@@ -265,7 +265,7 @@ def gen_book(member_dict, first_member_id, file_name):
     file = open(file_name, "w", encoding='UTF-8')
     member_queue.put(member_obj)
     cur_descent_no = member_obj.descent_no
-    file.write("## 第 " + str(member_obj.descent_no) + " 世" + descent_no_tag + '\n')
+    file.write("第 " + str(member_obj.descent_no) + " 世" + descent_no_tag + '\n')
 
     while not member_queue.empty():
         record_content = ""
@@ -292,11 +292,10 @@ def gen_book(member_dict, first_member_id, file_name):
 
         #member_obj.print_out()
         if member_obj.descent_no != cur_descent_no:
-            record_content += "## 第 " + str(member_obj.descent_no) + " 世" + descent_no_tag + '\n'
+            record_content += "第 " + str(member_obj.descent_no) + " 世" + descent_no_tag + '\n'
             cur_descent_no = member_obj.descent_no
 
-        record_content += "**<font size=4>" + cur_member_name + member_name_tag + "\n" + "</font>** <font " \
-                                                                                                "size=3> "
+        record_content += cur_member_name + member_name_tag + "\n" 
 
         # 当且仅当性别为女性时，需要标注性别
         sex = "" if member_obj.sex == 1 else "女，"
@@ -357,7 +356,6 @@ def gen_book(member_dict, first_member_id, file_name):
 
         if record_content[-1] == "，":
             record_content = record_content[:-1] + "。"
-        record_content += "</font>"
         record_content += member_description_tag
 
         file.write(record_content + "\n")
